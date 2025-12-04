@@ -1,0 +1,28 @@
+nextflow    -config conf/params.config \
+            -log 'logs/crc/nf-stai.log' \
+            run main.nf  \
+            -resume \
+            --adata_sp '../../input data/spatial_imputation.h5ad' \
+            --adata_sc '../../input data/sc_imputation.h5ad' \
+            --sc_layer 'corrected_counts' \
+            --sp_layer 'counts' \
+            --batch_key 'cell_type_imputation' \
+            --rna_batchsize 2048 \
+            --spatial_batchsize 2048 \
+            --d_hidden 64 \
+            --d_latent 32 \
+            --lam_clf 0.01 \
+            --lam_cos 1 \
+            --lam_genegraph 0 \
+            --lam_impute 3 \
+            --lam_mmd 0.1 \
+            --lam_recon 1.5 \
+            --eval_step 10 \
+            --k_folds 10 \
+            --lr 0.0005 \
+            --num_epoch 5000 \
+            --spatial_knn 8 \
+            --test_features 'EPCAM' \
+            --sc_label_key 'cell_type_imputation' \
+            --sp_label_key 'cell_type_imputation' \
+            -output-dir ../output/stai/per_cell_type
